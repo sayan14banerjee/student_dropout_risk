@@ -1,0 +1,12 @@
+model:
+  type: lightgbm
+  max_depth: 7
+  learning_rate: 0.05
+  n_estimators: 500
+
+metrics:
+  primary: roc_auc
+  secondary: f1_score
+
+thresholds:
+  risk_flag: 0.7
