@@ -3,3 +3,6 @@ numpy
 dvc
 mlflow
 json
+matplotlib
+seaborn
+sklearn
