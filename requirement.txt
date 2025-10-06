@@ -6,3 +6,5 @@ json
 matplotlib
 seaborn
 sklearn
+lightgbm
+xgboost

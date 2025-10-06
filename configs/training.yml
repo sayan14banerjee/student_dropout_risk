@@ -1,8 +1,17 @@
-model:
-  type: lightgbm
-  max_depth: 7
-  learning_rate: 0.05
-  n_estimators: 500
+# training.yml
+
+models:
+  - name: lightgbm
+    type: lightgbm
+    max_depth: 7
+    learning_rate: 0.05
+    n_estimators: 500
+
+  - name: xgboost
+    type: xgboost
+    max_depth: 7
+    learning_rate: 0.05
+    n_estimators: 500
 
 metrics:
   primary: roc_auc
@@ -10,3 +19,19 @@ metrics:
 
 thresholds:
   risk_flag: 0.7
+
+hyperparameter_search:
+  method: gridsearch  # Options: gridsearch / optuna
+  lightgbm:
+    num_leaves: [31, 50, 70]
+    learning_rate: [0.01, 0.05, 0.1]
+    n_estimators: [100, 300, 500]
+  xgboost:
+    max_depth: [3, 5, 7]
+    learning_rate: [0.01, 0.05, 0.1]
+    n_estimators: [100, 300, 500]
+
+logging:
+  experiment: dropout_prediction
+  tool: mlflow  # Options: mlflow / wandb
+
