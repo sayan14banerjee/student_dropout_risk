@@ -1,0 +1,37 @@
+name: Deploy FastAPI to AWS ECS
+
+on:
+  push:
+    tags:
+      - "v*.*.*"   # Trigger deployment only when a version tag is pushed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        env:
+          ECR_REGISTRY: <your-ecr-registry>
+          ECR_REPOSITORY: dropout-api
+          IMAGE_TAG: ${{ github.ref_name }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Deploy to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ecs-task-def.json
+          service: dropout-api-service
+          cluster: dropout-api-cluster
+          wait-for-service-stability: true

@@ -1,0 +1,4 @@
+# Assign code reviewers automatically
+/src/models/     @sayanbanerjee
+/src/api/        @sayanbanerjee
+/src/preprocessing/  @sayanbanerjee

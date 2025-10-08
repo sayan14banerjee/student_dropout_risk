@@ -1,0 +1,31 @@
+stages:
+  train_model:
+    cmd: python src/models/train.py
+    # remove - cmd: python src/models/train_model.py
+    deps:
+    - data/processed/X_train.csv
+    - data/processed/X_val.csv
+    - data/processed/y_train.csv
+    - data/processed/y_val.csv
+    # remove - removeparams.yaml
+    - configs/training.yml
+     # remove - src/models/train_model.py
+    - src/models/train.py
+    outs:
+    - mlruns/
+    - models/best_model.pkl
+  evaluate_model:
+    cmd: python src/evaluation/evaluate_model.py
+    # remove - cmd: python src/evaluation/evaluate_model.py
+    deps:
+    - data/processed/X_test.csv
+    - data/processed/y_test.csv
+    - models/best_model.pkl
+    # remove - src/evaluation/evaluate_model.py
+    - src/evaluation/evaluate_model.py
+    - configs/evaluation.yml
+    outs:
+    - reports/important_features.png
+    - reports/prediction.csv
+    - reports/result.csv
+    - reports/classification_reports.txt

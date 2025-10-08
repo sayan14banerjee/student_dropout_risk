@@ -8,3 +8,5 @@ seaborn
 sklearn
 lightgbm
 xgboost
+fastapi
+streamlit
