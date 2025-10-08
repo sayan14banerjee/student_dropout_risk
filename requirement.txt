@@ -2,11 +2,15 @@ pandas
 numpy
 dvc
 mlflow
-json
 matplotlib
 seaborn
-sklearn
+scikit-learn
 lightgbm
 xgboost
 fastapi
 streamlit
+joblib
+pydantic
+uvicorn
+requests
+tqdm
